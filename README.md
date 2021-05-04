@@ -1,3 +1,3 @@
 # ZeroPointHifiRemote-android
 
-Android Client for ZeroPointHifiControl (ZPHR)
+Android Client for ZeroPointHifiRemote (ZPHR)
