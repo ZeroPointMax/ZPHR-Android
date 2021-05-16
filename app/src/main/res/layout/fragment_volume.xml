@@ -9,8 +9,8 @@
 
     <ProgressBar
             style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Horizontal"
-            android:layout_width="222dp"
-            android:layout_height="39dp"
+            android:layout_width="254dp"
+            android:layout_height="24dp"
             android:id="@+id/progressBar"
             android:progress="42" android:max="100"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"/>
@@ -18,20 +18,37 @@
             android:text="@string/vol_hdph"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/textView"
-            app:layout_constraintStart_toEndOf="@+id/progressBar" android:layout_marginStart="8dp"
-            app:layout_constraintTop_toTopOf="@+id/progressBar"
-    />
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/progressBar"/>
     <TextView
             android:text="\?\?\?"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/text_vol_hdph"
-            android:layout_marginStart="8dp" app:layout_constraintStart_toEndOf="@+id/progressBar"
-            app:layout_constraintTop_toBottomOf="@+id/textView"/>
+            app:layout_constraintStart_toEndOf="@+id/textView" app:layout_constraintTop_toTopOf="@+id/textView"
+            android:layout_marginStart="8dp"/>
     <ImageButton
             android:src="@drawable/baseline_refresh_24"
+            android:layout_width="48dp"
+            android:layout_height="43dp" android:id="@+id/refreshButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/progressBar" app:layout_constraintTop_toTopOf="parent"/>
+    <SeekBar
+            android:layout_width="246dp"
+            android:layout_height="24dp" android:id="@+id/hdphSeekbar"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@+id/textView" app:layout_constraintStart_toStartOf="parent"
+            style="@android:style/Widget.DeviceDefault.SeekBar" android:max="100" android:progress="50"/>
+    <TextView
+            android:text=""
+            android:layout_width="32dp"
+            android:layout_height="18dp" android:id="@+id/hdphSeekBarText"
+            app:layout_constraintStart_toEndOf="@+id/hdphSeekbar" app:layout_constraintTop_toTopOf="@+id/hdphSeekbar"
+            android:layout_marginTop="4dp" android:layout_marginStart="8dp"/>
+    <ImageButton
+            android:src="@drawable/ic_baseline_done_24"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/refreshButton"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="36dp"
-            app:layout_constraintTop_toBottomOf="@+id/progressBar" android:layout_marginStart="48dp"
-    />
+            android:layout_height="wrap_content" android:id="@+id/imageButton"
+            app:layout_constraintStart_toEndOf="@+id/hdphSeekbar" android:layout_marginStart="63dp"
+            android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/refreshButton"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.0"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
