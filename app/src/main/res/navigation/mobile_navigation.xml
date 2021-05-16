@@ -3,23 +3,18 @@
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
             android:id="@+id/mobile_navigation"
-            app:startDestination="@+id/navigation_home">
+            app:startDestination="@+id/navigation_volume">
 
     <fragment
-            android:id="@+id/navigation_home"
-            android:name="de.zeropointmax.zphr.ui.home.HomeFragment"
-            android:label="@string/title_home"
-            tools:layout="@layout/fragment_home"/>
+            android:id="@+id/navigation_volume"
+            android:name="de.zeropointmax.zphr.ui.home.VolumeFragment"
+            android:label="@string/title_volume"
+            tools:layout="@layout/fragment_volume"/>
 
     <fragment
-            android:id="@+id/navigation_dashboard"
+            android:id="@+id/navigation_system"
             android:name="de.zeropointmax.zphr.ui.dashboard.DashboardFragment"
-            android:label="@string/title_dashboard"
-            tools:layout="@layout/fragment_dashboard"/>
+            android:label="@string/title_system"
+            tools:layout="@layout/fragment_system"/>
 
-    <fragment
-            android:id="@+id/navigation_notifications"
-            android:name="de.zeropointmax.zphr.ui.notifications.NotificationsFragment"
-            android:label="@string/title_notifications"
-            tools:layout="@layout/fragment_notifications"/>
 </navigation>
