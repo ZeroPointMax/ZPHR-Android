@@ -36,6 +36,7 @@ public class VolumeFragment extends Fragment {
         final TextView textViewVolDigital = root.findViewById(R.id.text_vol_digital);
         final ImageButton refreshButton = root.findViewById(R.id.refreshButton);
         final ImageButton hdphSendButton = root.findViewById(R.id.hdphSendButton);
+        final ImageButton digitalSendButton = root.findViewById(R.id.digitalSendButton);
         final SeekBar hdphSeekBar = root.findViewById(R.id.hdphSeekbar);
         final SeekBar digitalSeekBar = root.findViewById(R.id.digitalSeekBar);
         final TextView hdphSeekBarText = root.findViewById(R.id.hdphSeekBarText);
@@ -130,6 +131,26 @@ public class VolumeFragment extends Fragment {
                     public void onResponse(@NotNull Call<Integer> call, @NotNull Response<Integer> response) {
                         if (response.isSuccessful()) {
                             textViewVolHdph.setText(response.body().toString());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Integer> call, Throwable t) {
+
+                    }
+                });
+            }
+        });
+
+        digitalSendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                apiService.setVolumeDigital(digitalSeekBar.getProgress()).enqueue(new Callback<Integer>() {
+                    @SuppressLint("SetTextI18n")
+                    @Override
+                    public void onResponse(@NotNull Call<Integer> call, @NotNull Response<Integer> response) {
+                        if (response.isSuccessful()) {
+                            textViewVolDigital.setText(response.body().toString());
                         }
                     }
 
