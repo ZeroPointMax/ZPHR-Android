@@ -33,6 +33,7 @@ public class VolumeFragment extends Fragment {
         //VolumeViewModel volumeViewModel = new ViewModelProvider(this).get(VolumeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_volume, container, false);
         final TextView textViewVolHdph = root.findViewById(R.id.text_vol_hdph);
+        final TextView textViewVolDigital = root.findViewById(R.id.text_vol_digital);
         final ImageButton refreshButton = root.findViewById(R.id.refreshButton);
         final ImageButton hdphSendButton = root.findViewById(R.id.hdphSendButton);
         final SeekBar hdphSeekBar = root.findViewById(R.id.hdphSeekbar);
@@ -52,7 +53,10 @@ public class VolumeFragment extends Fragment {
                     @Override
                     public void onResponse(@NotNull Call<Integer> call, @NotNull Response<Integer> response) {
                         if (response.isSuccessful()) {
-                            textViewVolHdph.setText(response.body().toString());
+                            Integer volume = response.body();
+                            assert volume != null;
+                            textViewVolHdph.setText(volume.toString());
+                            hdphSeekBar.setProgress(volume);
                         }
                     }
 
@@ -60,6 +64,23 @@ public class VolumeFragment extends Fragment {
                     public void onFailure(@NotNull Call<Integer> call, Throwable t) {
                         Log.e("ERROR: ", t.getMessage());
                         t.printStackTrace();
+                    }
+                });
+                apiService.getVolumeDigital().enqueue(new Callback<Integer>() {
+                    @SuppressLint("SetTextI18n")
+                    @Override
+                    public void onResponse(@NotNull Call<Integer> call, @NotNull Response<Integer> response) {
+                        if (response.isSuccessful()){
+                            Integer volume = response.body();
+                            assert volume != null;
+                            textViewVolDigital.setText(volume.toString());
+                            digitalSeekBar.setProgress(volume);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Integer> call, Throwable t) {
+
                     }
                 });
             }
