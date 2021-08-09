@@ -2,5 +2,5 @@
     <string name="app_name">ZPHR</string>
     <string name="title_volume">Lautstärke</string>
     <string name="title_system">System</string>
-    <string name="vol_hdph">Lautstärke Ausgang: </string>
+    <string name="vol_hdph">Lautstärke Klinke: </string>
 </resources>

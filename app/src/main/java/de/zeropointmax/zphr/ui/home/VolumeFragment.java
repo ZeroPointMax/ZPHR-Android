@@ -1,5 +1,6 @@
 package de.zeropointmax.zphr.ui.home;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,11 +15,14 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import de.zeropointmax.zphr.ApiService;
 import de.zeropointmax.zphr.R;
+import org.jetbrains.annotations.NotNull;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Body;
+import retrofit2.http.FormUrlEncoded;
 
 public class VolumeFragment extends Fragment {
 
@@ -46,15 +50,16 @@ public class VolumeFragment extends Fragment {
         refreshButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 apiService.getVolumeHeadphone().enqueue(new Callback<Integer>() {
+                    @SuppressLint("SetTextI18n")
                     @Override
-                    public void onResponse(Call<Integer> call, Response<Integer> response) {
+                    public void onResponse(@NotNull Call<Integer> call, @NotNull Response<Integer> response) {
                         if (response.isSuccessful()) {
                             textViewVolHdph.setText(response.body().toString());
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<Integer> call, Throwable t) {
+                    public void onFailure(@NotNull Call<Integer> call, Throwable t) {
                         Log.e("ERROR: ", t.getMessage());
                         t.printStackTrace();
                     }
@@ -82,7 +87,21 @@ public class VolumeFragment extends Fragment {
         hdphSendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                apiService.setVolumeHeadphone(hdphSeekBar.getProgress());
+                //apiService.setVolumeHeadphone(hdphSeekBar.getProgress());
+                apiService.setVolumeHeadphone(hdphSeekBar.getProgress()).enqueue(new Callback<Integer>() {
+                    @SuppressLint("SetTextI18n")
+                    @Override
+                    public void onResponse(@NotNull Call<Integer> call, @NotNull Response<Integer> response) {
+                        if (response.isSuccessful()) {
+                            textViewVolHdph.setText(response.body().toString());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Integer> call, Throwable t) {
+
+                    }
+                });
             }
         });
 

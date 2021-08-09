@@ -1,38 +1,41 @@
 package de.zeropointmax.zphr;
 
 import retrofit2.Call;
-import retrofit2.http.Body;
-import retrofit2.http.GET;
-import retrofit2.http.POST;
+import retrofit2.http.*;
 
 public interface ApiService {
     @GET("volDigital")
     Call<Integer> getVolumeDigital();
 
     @POST("volDigital")
-    Call<Integer> setVolumeDigital(@Body Integer volDigital);
+    @FormUrlEncoded
+    Call<Integer> setVolumeDigital(@Field("vol") Integer volDigital);
 
     @GET("volHeadphone")
     Call<Integer> getVolumeHeadphone();
 
     @POST("volHeadphone")
-    Call<Integer> setVolumeHeadphone(@Body Integer volHeadphone);
+    @FormUrlEncoded
+    Call<Integer> setVolumeHeadphone(@Field("vol") Integer volHeadphone);
 
     @GET("mute")
     Call<Short> getMute();
 
     @POST("mute")
-    Call<Short> setMute(@Body Short mute);
+    @FormUrlEncoded
+    Call<Short> setMute(@Field Short mute);
 
     @GET("analogBooster1")
     Call<Short> getAB1();
 
     @POST("analogBooster1")
-    Call<Short> setAB1();
+    @FormUrlEncoded
+    Call<Short> setAB1(@Field("vol") Short ab1);
 
     @GET("analogBooster2")
     Call<Short> getAB2();
 
     @POST("analogBooster2")
-    Call<Short> setAB2();
+    @FormUrlEncoded
+    Call<Short> setAB2(@Field("vol") Short ab2);
 }
