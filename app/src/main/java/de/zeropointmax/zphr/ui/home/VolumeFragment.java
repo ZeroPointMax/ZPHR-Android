@@ -1,7 +1,6 @@
 package de.zeropointmax.zphr.ui.home;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import de.zeropointmax.zphr.ApiService;
@@ -21,8 +19,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.Body;
-import retrofit2.http.FormUrlEncoded;
 
 public class VolumeFragment extends Fragment {
 
@@ -40,7 +36,9 @@ public class VolumeFragment extends Fragment {
         final ImageButton refreshButton = root.findViewById(R.id.refreshButton);
         final ImageButton hdphSendButton = root.findViewById(R.id.hdphSendButton);
         final SeekBar hdphSeekBar = root.findViewById(R.id.hdphSeekbar);
+        final SeekBar digitalSeekBar = root.findViewById(R.id.digitalSeekBar);
         final TextView hdphSeekBarText = root.findViewById(R.id.hdphSeekBarText);
+        final TextView digitalSeekBarText = root.findViewById(R.id.digitalSeekBarText);
         /*volumeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
@@ -71,6 +69,23 @@ public class VolumeFragment extends Fragment {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 hdphSeekBarText.setText(String.valueOf(progress));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        digitalSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                digitalSeekBarText.setText(String.valueOf(progress));
             }
 
             @Override

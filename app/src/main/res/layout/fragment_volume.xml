@@ -13,8 +13,8 @@
             android:layout_height="wrap_content" android:id="@+id/textView"
             app:layout_constraintStart_toStartOf="parent"
             android:scaleX="1.2" android:scaleY="1.2"
-            app:layout_constraintTop_toTopOf="parent" android:layout_marginStart="16dp"
-            android:layout_marginTop="240dp"/>
+            android:layout_marginStart="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/digitalSeekBar" android:layout_marginTop="64dp"/>
     <TextView
             android:text="\?\?\?"
             android:layout_width="wrap_content"
@@ -25,8 +25,9 @@
             android:src="@drawable/baseline_refresh_24"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/refreshButton"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textView" android:layout_marginEnd="32dp"/>
+            app:layout_constraintStart_toEndOf="@+id/ab2CheckBox"
+            android:layout_marginStart="16dp" app:layout_constraintTop_toTopOf="@+id/ab2CheckBox"
+            app:layout_constraintBottom_toBottomOf="@+id/ab2CheckBox" android:scaleX="1.2" android:scaleY="1.2"/>
     <SeekBar
             android:layout_width="246dp"
             android:layout_height="24dp" android:id="@+id/hdphSeekbar"
@@ -38,11 +39,64 @@
             android:layout_width="32dp"
             android:layout_height="18dp" android:id="@+id/hdphSeekBarText"
             app:layout_constraintStart_toEndOf="@+id/hdphSeekbar" app:layout_constraintTop_toTopOf="@+id/hdphSeekbar"
-            android:layout_marginTop="4dp" android:layout_marginStart="8dp"/>
+            android:layout_marginTop="4dp" android:layout_marginStart="8dp" android:scaleX="1.2" android:scaleY="1.2"/>
     <ImageButton
             android:src="@drawable/ic_baseline_done_24"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/hdphSendButton"
-            android:layout_marginTop="12dp" app:layout_constraintTop_toBottomOf="@+id/refreshButton"
-            app:layout_constraintEnd_toEndOf="@+id/refreshButton"/>
+            app:layout_constraintStart_toEndOf="@+id/hdphSeekBarText" android:layout_marginStart="24dp"
+            app:layout_constraintBottom_toBottomOf="@+id/hdphSeekBarText"
+            app:layout_constraintTop_toTopOf="@+id/hdphSeekBarText"/>
+    <CheckBox
+            android:text="@string/ab1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/ab1CheckBox"
+            app:layout_constraintTop_toTopOf="@+id/muteToggleButton"
+            app:layout_constraintStart_toEndOf="@+id/muteToggleButton" android:layout_marginStart="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/muteToggleButton"/>
+
+    <ToggleButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/muteToggleButton"
+            android:drawableTop="@drawable/mute_selector"
+            android:textOff="@string/mute_off" android:textOn="@string/mute_on"
+            app:layout_constraintTop_toBottomOf="@+id/hdphSeekbar" android:layout_marginTop="64dp"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"/>
+    <CheckBox
+            android:text="@string/ab2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/ab2CheckBox"
+            app:layout_constraintStart_toEndOf="@+id/ab1CheckBox" app:layout_constraintTop_toTopOf="@+id/ab1CheckBox"
+            android:layout_marginStart="16dp"/>
+    <TextView
+            android:text="@string/vol_digital"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/textView2"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="16dp" android:scaleX="1.2" android:scaleY="1.2"/>
+    <TextView
+            android:text="\?\?\?"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/text_vol_digital"
+            app:layout_constraintTop_toTopOf="@+id/textView2" app:layout_constraintStart_toEndOf="@+id/textView2"
+            android:layout_marginStart="24dp" android:scaleX="1.2" android:scaleY="1.2"/>
+    <SeekBar
+            android:layout_width="246dp"
+            android:layout_height="24dp" android:id="@+id/digitalSeekBar"
+            app:layout_constraintTop_toBottomOf="@+id/textView2" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="16dp" style="@android:style/Widget.DeviceDefault.SeekBar"/>
+    <TextView
+            android:layout_width="32dp"
+            android:layout_height="18dp" android:id="@+id/digitalSeekBarText"
+            app:layout_constraintTop_toTopOf="@+id/digitalSeekBar"
+            app:layout_constraintStart_toEndOf="@+id/digitalSeekBar" android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp" android:scaleX="1.2" android:scaleY="1.2"/>
+    <ImageButton
+            android:src="@drawable/ic_baseline_done_24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/imageButton2"
+            app:layout_constraintTop_toTopOf="@+id/digitalSeekBarText"
+            app:layout_constraintBottom_toBottomOf="@+id/digitalSeekBarText"
+            app:layout_constraintStart_toEndOf="@+id/digitalSeekBarText" android:layout_marginStart="24dp"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

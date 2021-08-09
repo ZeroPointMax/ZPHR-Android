@@ -3,4 +3,9 @@
     <string name="title_volume">Lautstärke</string>
     <string name="title_system">System</string>
     <string name="vol_hdph">Lautstärke Klinke: </string>
+    <string name="vol_digital">Lautstärke: </string>
+    <string name="ab1">Booster 1</string>
+    <string name="ab2">Booster 2</string>
+    <string name="mute_on">Stumm</string>
+    <string name="mute_off">Laut</string>
 </resources>
