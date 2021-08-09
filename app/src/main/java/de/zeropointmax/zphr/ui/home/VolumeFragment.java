@@ -23,7 +23,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class VolumeFragment extends Fragment {
 
     ApiService apiService = new Retrofit.Builder()
-            .baseUrl("http://zpm-canor.fritz.box:5000/")
+            .baseUrl("http://zpm-canor.fritz.box:5001/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(ApiService.class);
@@ -34,6 +34,7 @@ public class VolumeFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_volume, container, false);
         final TextView textViewVolHdph = root.findViewById(R.id.text_vol_hdph);
         final ImageButton refreshButton = root.findViewById(R.id.refreshButton);
+        final ImageButton hdphSendButton = root.findViewById(R.id.hdphSendButton);
         final SeekBar hdphSeekBar = root.findViewById(R.id.hdphSeekbar);
         final TextView hdphSeekBarText = root.findViewById(R.id.hdphSeekBarText);
         /*volumeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
@@ -75,6 +76,13 @@ public class VolumeFragment extends Fragment {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
 
+            }
+        });
+
+        hdphSendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                apiService.setVolumeHeadphone(hdphSeekBar.getProgress());
             }
         });
 
