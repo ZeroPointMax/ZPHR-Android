@@ -206,6 +206,63 @@ public class VolumeFragment extends Fragment {
             }
         });
 
+        muteToggleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                apiService.setMute((short) (muteToggleButton.isChecked() ? 1 : 0)).enqueue(new Callback<Short>() {
+                    @Override
+                    public void onResponse(@NotNull Call<Short> call, @NotNull Response<Short> response) {
+                        if (response.isSuccessful()) { // check again anyways because who knows? It's ALSA after all
+                            muteToggleButton.setChecked(response.body() > 0);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Short> call, Throwable t) {
+
+                    }
+                });
+            }
+        });
+
+        ab1CheckBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                apiService.setAB1((short) (ab1CheckBox.isChecked() ? 1 : 0)).enqueue(new Callback<Short>() {
+                    @Override
+                    public void onResponse(@NotNull Call<Short> call, @NotNull Response<Short> response) {
+                        if (response.isSuccessful()) {
+                            ab1CheckBox.setChecked(response.body() > 0);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Short> call, Throwable t) {
+
+                    }
+                });
+            }
+        });
+
+        ab2CheckBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                apiService.setAB2((short) (ab2CheckBox.isChecked() ? 1 : 0)).enqueue(new Callback<Short>() {
+                    @Override
+                    public void onResponse(@NotNull Call<Short> call, @NotNull Response<Short> response) {
+                        if (response.isSuccessful()) {
+                            ab2CheckBox.setChecked(response.body() > 0);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Short> call, Throwable t) {
+
+                    }
+                });
+            }
+        });
+
         return root;
     }
 }

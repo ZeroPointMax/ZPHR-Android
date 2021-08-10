@@ -23,7 +23,7 @@ public interface ApiService {
 
     @POST("mute")
     @FormUrlEncoded
-    Call<Short> setMute(@Field("vol") Short mute);
+    Call<Short> setMute(@Field("mute") Short mute);
 
     @GET("analogBooster1")
     Call<Short> getAB1();
