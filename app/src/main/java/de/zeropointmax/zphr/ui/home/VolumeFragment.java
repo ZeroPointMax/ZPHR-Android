@@ -6,10 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.SeekBar;
-import android.widget.TextView;
-import android.widget.ToggleButton;
+import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import de.zeropointmax.zphr.ApiService;
@@ -43,6 +40,8 @@ public class VolumeFragment extends Fragment {
         final ToggleButton muteToggleButton = root.findViewById(R.id.muteToggleButton);
         final SeekBar hdphSeekBar = root.findViewById(R.id.hdphSeekbar);
         final SeekBar digitalSeekBar = root.findViewById(R.id.digitalSeekBar);
+        final CheckBox ab1CheckBox = root.findViewById(R.id.ab1CheckBox);
+        final CheckBox ab2CheckBox = root.findViewById(R.id.ab2CheckBox);
         /*volumeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
@@ -93,6 +92,34 @@ public class VolumeFragment extends Fragment {
                     public void onResponse(@NotNull Call<Short> call, @NotNull Response<Short> response) {
                         if (response.isSuccessful()) {
                             muteToggleButton.setChecked(response.body() > 0);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Short> call, Throwable t) {
+
+                    }
+                });
+
+                apiService.getAB1().enqueue(new Callback<Short>() {
+                    @Override
+                    public void onResponse(@NotNull Call<Short> call, @NotNull Response<Short> response) {
+                        if (response.isSuccessful()) {
+                            ab1CheckBox.setChecked(response.body() > 0);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Short> call, Throwable t) {
+
+                    }
+                });
+
+                apiService.getAB2().enqueue(new Callback<Short>() {
+                    @Override
+                    public void onResponse(@NotNull Call<Short> call, @NotNull Response<Short> response) {
+                        if (response.isSuccessful()) {
+                            ab2CheckBox.setChecked(response.body() > 0);
                         }
                     }
 
