@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import de.zeropointmax.zphr.ApiService;
@@ -34,13 +35,14 @@ public class VolumeFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_volume, container, false);
         final TextView textViewVolHdph = root.findViewById(R.id.text_vol_hdph);
         final TextView textViewVolDigital = root.findViewById(R.id.text_vol_digital);
+        final TextView hdphSeekBarText = root.findViewById(R.id.hdphSeekBarText);
+        final TextView digitalSeekBarText = root.findViewById(R.id.digitalSeekBarText);
         final ImageButton refreshButton = root.findViewById(R.id.refreshButton);
         final ImageButton hdphSendButton = root.findViewById(R.id.hdphSendButton);
         final ImageButton digitalSendButton = root.findViewById(R.id.digitalSendButton);
+        final ToggleButton muteToggleButton = root.findViewById(R.id.muteToggleButton);
         final SeekBar hdphSeekBar = root.findViewById(R.id.hdphSeekbar);
         final SeekBar digitalSeekBar = root.findViewById(R.id.digitalSeekBar);
-        final TextView hdphSeekBarText = root.findViewById(R.id.hdphSeekBarText);
-        final TextView digitalSeekBarText = root.findViewById(R.id.digitalSeekBarText);
         /*volumeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
@@ -67,6 +69,7 @@ public class VolumeFragment extends Fragment {
                         t.printStackTrace();
                     }
                 });
+
                 apiService.getVolumeDigital().enqueue(new Callback<Integer>() {
                     @SuppressLint("SetTextI18n")
                     @Override
@@ -81,6 +84,20 @@ public class VolumeFragment extends Fragment {
 
                     @Override
                     public void onFailure(Call<Integer> call, Throwable t) {
+
+                    }
+                });
+
+                apiService.getMute().enqueue(new Callback<Short>() {
+                    @Override
+                    public void onResponse(@NotNull Call<Short> call, @NotNull Response<Short> response) {
+                        if (response.isSuccessful()) {
+                            muteToggleButton.setChecked(response.body() > 0);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Short> call, Throwable t) {
 
                     }
                 });
