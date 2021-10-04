@@ -1,4 +1,4 @@
-package de.zeropointmax.zphr.ui.dashboard;
+package de.zeropointmax.zphr.ui.system;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

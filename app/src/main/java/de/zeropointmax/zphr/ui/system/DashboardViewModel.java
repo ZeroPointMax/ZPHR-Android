@@ -1,23 +1,19 @@
-package de.zeropointmax.zphr.ui.home;
+package de.zeropointmax.zphr.ui.system;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class VolumeViewModel extends ViewModel {
+public class DashboardViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public VolumeViewModel() {
+    public DashboardViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("???");
+        mText.setValue("This is dashboard fragment");
     }
 
     public LiveData<String> getText() {
         return mText;
-    }
-
-    public void setmText(String s) {
-        mText.setValue(s);
     }
 }

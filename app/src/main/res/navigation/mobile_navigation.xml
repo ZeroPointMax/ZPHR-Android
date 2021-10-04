@@ -7,13 +7,13 @@
 
     <fragment
             android:id="@+id/navigation_volume"
-            android:name="de.zeropointmax.zphr.ui.home.VolumeFragment"
+            android:name="de.zeropointmax.zphr.ui.volume.VolumeFragment"
             android:label="@string/title_volume"
             tools:layout="@layout/fragment_volume"/>
 
     <fragment
             android:id="@+id/navigation_system"
-            android:name="de.zeropointmax.zphr.ui.dashboard.DashboardFragment"
+            android:name="de.zeropointmax.zphr.ui.system.DashboardFragment"
             android:label="@string/title_system"
             tools:layout="@layout/fragment_system"/>
 

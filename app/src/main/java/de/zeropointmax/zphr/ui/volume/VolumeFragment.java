@@ -1,4 +1,4 @@
-package de.zeropointmax.zphr.ui.home;
+package de.zeropointmax.zphr.ui.volume;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -26,22 +26,35 @@ public class VolumeFragment extends Fragment {
             .build()
             .create(ApiService.class);
 
+    TextView textViewVolHdph;
+    TextView textViewVolDigital;
+    TextView hdphSeekBarText;
+    TextView digitalSeekBarText;
+    ImageButton refreshButton;
+    ImageButton hdphSendButton;
+    ImageButton digitalSendButton;
+    ToggleButton muteToggleButton;
+    SeekBar hdphSeekBar;
+    SeekBar digitalSeekBar;
+    CheckBox ab1CheckBox;
+    CheckBox ab2CheckBox;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         //VolumeViewModel volumeViewModel = new ViewModelProvider(this).get(VolumeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_volume, container, false);
-        final TextView textViewVolHdph = root.findViewById(R.id.text_vol_hdph);
-        final TextView textViewVolDigital = root.findViewById(R.id.text_vol_digital);
-        final TextView hdphSeekBarText = root.findViewById(R.id.hdphSeekBarText);
-        final TextView digitalSeekBarText = root.findViewById(R.id.digitalSeekBarText);
-        final ImageButton refreshButton = root.findViewById(R.id.refreshButton);
-        final ImageButton hdphSendButton = root.findViewById(R.id.hdphSendButton);
-        final ImageButton digitalSendButton = root.findViewById(R.id.digitalSendButton);
-        final ToggleButton muteToggleButton = root.findViewById(R.id.muteToggleButton);
-        final SeekBar hdphSeekBar = root.findViewById(R.id.hdphSeekbar);
-        final SeekBar digitalSeekBar = root.findViewById(R.id.digitalSeekBar);
-        final CheckBox ab1CheckBox = root.findViewById(R.id.ab1CheckBox);
-        final CheckBox ab2CheckBox = root.findViewById(R.id.ab2CheckBox);
+        textViewVolHdph = root.findViewById(R.id.text_vol_hdph);
+        textViewVolDigital = root.findViewById(R.id.text_vol_digital);
+        hdphSeekBarText = root.findViewById(R.id.hdphSeekBarText);
+        digitalSeekBarText = root.findViewById(R.id.digitalSeekBarText);
+        refreshButton = root.findViewById(R.id.refreshButton);
+        hdphSendButton = root.findViewById(R.id.hdphSendButton);
+        digitalSendButton = root.findViewById(R.id.digitalSendButton);
+        muteToggleButton = root.findViewById(R.id.muteToggleButton);
+        hdphSeekBar = root.findViewById(R.id.hdphSeekbar);
+        digitalSeekBar = root.findViewById(R.id.digitalSeekBar);
+        ab1CheckBox = root.findViewById(R.id.ab1CheckBox);
+        ab2CheckBox = root.findViewById(R.id.ab2CheckBox);
         /*volumeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
