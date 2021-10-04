@@ -3,6 +3,9 @@ package de.zeropointmax.zphr;
 import retrofit2.Call;
 import retrofit2.http.*;
 
+/**
+ * Interface to declare API Endpoints for Retrofit2
+ */
 public interface ApiService {
     @GET("volDigital")
     Call<Integer> getVolumeDigital();
