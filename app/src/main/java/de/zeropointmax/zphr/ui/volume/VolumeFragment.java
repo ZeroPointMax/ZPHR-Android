@@ -39,6 +39,87 @@ public class VolumeFragment extends Fragment {
     CheckBox ab1CheckBox;
     CheckBox ab2CheckBox;
 
+    void refreshAll() {
+        apiService.getVolumeHeadphone().enqueue(new Callback<Integer>() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onResponse(@NotNull Call<Integer> call, @NotNull Response<Integer> response) {
+                if (response.isSuccessful()) {
+                    Integer volume = response.body();
+                    assert volume != null;
+                    textViewVolHdph.setText(volume.toString());
+                    hdphSeekBar.setProgress(volume);
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<Integer> call, Throwable t) {
+                Log.e("ERROR: ", t.getMessage());
+                t.printStackTrace();
+            }
+        });
+
+        apiService.getVolumeDigital().enqueue(new Callback<Integer>() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onResponse(@NotNull Call<Integer> call, @NotNull Response<Integer> response) {
+                if (response.isSuccessful()){
+                    Integer volume = response.body();
+                    assert volume != null;
+                    textViewVolDigital.setText(volume.toString());
+                    digitalSeekBar.setProgress(volume);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Integer> call, Throwable t) {
+
+            }
+        });
+
+        apiService.getMute().enqueue(new Callback<Short>() {
+            @Override
+            public void onResponse(@NotNull Call<Short> call, @NotNull Response<Short> response) {
+                if (response.isSuccessful()) {
+                    muteToggleButton.setChecked(response.body() > 0);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Short> call, Throwable t) {
+
+            }
+        });
+
+        apiService.getAB1().enqueue(new Callback<Short>() {
+            @Override
+            public void onResponse(@NotNull Call<Short> call, @NotNull Response<Short> response) {
+                if (response.isSuccessful()) {
+                    ab1CheckBox.setChecked(response.body() > 0);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Short> call, Throwable t) {
+
+            }
+        });
+
+        apiService.getAB2().enqueue(new Callback<Short>() {
+            @Override
+            public void onResponse(@NotNull Call<Short> call, @NotNull Response<Short> response) {
+                if (response.isSuccessful()) {
+                    ab2CheckBox.setChecked(response.body() > 0);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Short> call, Throwable t) {
+
+            }
+        });
+    }
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         //VolumeViewModel volumeViewModel = new ViewModelProvider(this).get(VolumeViewModel.class);
@@ -61,86 +142,12 @@ public class VolumeFragment extends Fragment {
                 //textView.setText(s);
             }
         });*/
+
+        refreshAll();
+
         refreshButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                apiService.getVolumeHeadphone().enqueue(new Callback<Integer>() {
-                    @SuppressLint("SetTextI18n")
-                    @Override
-                    public void onResponse(@NotNull Call<Integer> call, @NotNull Response<Integer> response) {
-                        if (response.isSuccessful()) {
-                            Integer volume = response.body();
-                            assert volume != null;
-                            textViewVolHdph.setText(volume.toString());
-                            hdphSeekBar.setProgress(volume);
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(@NotNull Call<Integer> call, Throwable t) {
-                        Log.e("ERROR: ", t.getMessage());
-                        t.printStackTrace();
-                    }
-                });
-
-                apiService.getVolumeDigital().enqueue(new Callback<Integer>() {
-                    @SuppressLint("SetTextI18n")
-                    @Override
-                    public void onResponse(@NotNull Call<Integer> call, @NotNull Response<Integer> response) {
-                        if (response.isSuccessful()){
-                            Integer volume = response.body();
-                            assert volume != null;
-                            textViewVolDigital.setText(volume.toString());
-                            digitalSeekBar.setProgress(volume);
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<Integer> call, Throwable t) {
-
-                    }
-                });
-
-                apiService.getMute().enqueue(new Callback<Short>() {
-                    @Override
-                    public void onResponse(@NotNull Call<Short> call, @NotNull Response<Short> response) {
-                        if (response.isSuccessful()) {
-                            muteToggleButton.setChecked(response.body() > 0);
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<Short> call, Throwable t) {
-
-                    }
-                });
-
-                apiService.getAB1().enqueue(new Callback<Short>() {
-                    @Override
-                    public void onResponse(@NotNull Call<Short> call, @NotNull Response<Short> response) {
-                        if (response.isSuccessful()) {
-                            ab1CheckBox.setChecked(response.body() > 0);
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<Short> call, Throwable t) {
-
-                    }
-                });
-
-                apiService.getAB2().enqueue(new Callback<Short>() {
-                    @Override
-                    public void onResponse(@NotNull Call<Short> call, @NotNull Response<Short> response) {
-                        if (response.isSuccessful()) {
-                            ab2CheckBox.setChecked(response.body() > 0);
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<Short> call, Throwable t) {
-
-                    }
-                });
+                refreshAll();
             }
         });
 
@@ -181,7 +188,6 @@ public class VolumeFragment extends Fragment {
         hdphSendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //apiService.setVolumeHeadphone(hdphSeekBar.getProgress());
                 apiService.setVolumeHeadphone(hdphSeekBar.getProgress()).enqueue(new Callback<Integer>() {
                     @SuppressLint("SetTextI18n")
                     @Override
