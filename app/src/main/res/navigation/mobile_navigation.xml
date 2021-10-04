@@ -13,7 +13,7 @@
 
     <fragment
             android:id="@+id/navigation_system"
-            android:name="de.zeropointmax.zphr.ui.system.DashboardFragment"
+            android:name="de.zeropointmax.zphr.ui.system.SystemFragment"
             android:label="@string/title_system"
             tools:layout="@layout/fragment_system"/>
 
