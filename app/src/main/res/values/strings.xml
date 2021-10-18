@@ -17,4 +17,5 @@
     <string name="connection_lost">nicht verbunden</string>
     <string name="system_reboot">Neustart</string>
     <string name="system_shutdown">Ausschalten</string>
+    <string name="system_server_uri">Adresse des Backends:</string>
 </resources>
