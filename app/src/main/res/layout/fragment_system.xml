@@ -21,12 +21,30 @@
             app:layout_constraintTop_toTopOf="@+id/textView3"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             app:layout_constraintBottom_toBottomOf="@+id/textView3" android:textSize="16sp"/>
+
+    <!--TODO: this button is supposed to deactivate if VLC does not run-->
     <Button
             android:layout_width="130dp"
             android:layout_height="67dp" android:id="@+id/button_vlc_rc"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="24dp" app:layout_constraintTop_toBottomOf="@+id/textView3"
-            android:text="@string/vlc_web_button" android:layout_marginStart="32dp"/>
+            android:text="@string/vlc_web_button" android:layout_marginStart="32dp" android:backgroundTint="#f78800"/>
+    <Button
+            android:layout_width="130dp"
+            android:layout_height="67dp" android:id="@+id/button_reboot"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="@string/system_reboot" android:layout_marginStart="32dp"
+            app:layout_constraintTop_toBottomOf="@+id/textView4" android:layout_marginTop="24dp"
+            android:backgroundTint="#FFC107" android:textColor="#000000"/>
+    <Button
+            android:layout_width="130dp"
+            android:layout_height="67dp" android:id="@+id/button_shutdown"
+            android:text="@string/system_shutdown"
+            app:layout_constraintTop_toTopOf="@+id/button_reboot"
+            app:layout_constraintBottom_toBottomOf="@+id/button_reboot" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="32dp" android:backgroundTint="#E00000"/>
+
+    <!--TODO: this button is supposed to change colour and string depending on wether VLC runs already or not-->
     <Button
             android:layout_width="120dp"
             android:layout_height="67dp" android:id="@+id/button_vlc_start_kill"

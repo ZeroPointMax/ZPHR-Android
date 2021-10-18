@@ -15,4 +15,6 @@
     <string name="connection_status">Verbindungsstatus: </string>
     <string name="connection_ok">OK</string>
     <string name="connection_lost">nicht verbunden</string>
+    <string name="system_reboot">Neustart</string>
+    <string name="system_shutdown">Ausschalten</string>
 </resources>
