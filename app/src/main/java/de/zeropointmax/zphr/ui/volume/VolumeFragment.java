@@ -1,6 +1,8 @@
 package de.zeropointmax.zphr.ui.volume;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,12 +22,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class VolumeFragment extends Fragment {
 
-    ApiService apiService = new Retrofit.Builder()
-            .baseUrl("http://zpm-canor.fritz.box:5001/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(ApiService.class);
-
+    ApiService apiService;
+    SharedPreferences connectionSettings;
     TextView textViewVolHdph;
     TextView textViewVolDigital;
     TextView hdphSeekBarText;
@@ -39,6 +37,9 @@ public class VolumeFragment extends Fragment {
     CheckBox ab1CheckBox;
     CheckBox ab2CheckBox;
 
+    /**
+     * Update all UI components from the backend and silently fail on errors
+     */
     void refreshAll() {
         apiService.getVolumeHeadphone().enqueue(new Callback<Integer>() {
             @SuppressLint("SetTextI18n")
@@ -122,6 +123,19 @@ public class VolumeFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        Context context = getActivity();
+        assert context != null; // i've heard using asserts in prod is sexy; greetings to Prof. Dr. Kusche
+        // get handle to saved app preferences
+        connectionSettings = context.getSharedPreferences(getString(R.string.pref_conn_settings), Context.MODE_PRIVATE);
+        // initialize API connection with saved URI (as definded by user in System Fragment)
+        // for now, localhost is used if there is no backend saved yet
+        //TODO: investigate how to do this properly and not use a known-failing IP address
+        ApiService apiService = new Retrofit.Builder()
+                .baseUrl(connectionSettings.getString(getString(R.string.pref_conn_settings), "192.168.178.21"))
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+                .create(ApiService.class);
+
         //VolumeViewModel volumeViewModel = new ViewModelProvider(this).get(VolumeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_volume, container, false);
         textViewVolHdph = root.findViewById(R.id.text_vol_hdph);
