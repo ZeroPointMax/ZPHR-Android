@@ -1,4 +1,4 @@
-package de.zeropointmax.zphr.ui.home;
+package de.zeropointmax.zphr.ui.volume;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
