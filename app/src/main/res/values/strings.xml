@@ -12,4 +12,7 @@
     <string name="vlc_web_button">VLC-Remote</string>
     <string name="vlc_start">VLC starten</string>
     <string name="vlc_kill">VLC beenden</string>
+    <string name="connection_status">Verbindungsstatus: </string>
+    <string name="connection_ok">OK</string>
+    <string name="connection_lost">nicht verbunden</string>
 </resources>
