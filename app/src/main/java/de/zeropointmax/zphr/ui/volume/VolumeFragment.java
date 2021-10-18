@@ -130,11 +130,21 @@ public class VolumeFragment extends Fragment {
         // initialize API connection with saved URI (as definded by user in System Fragment)
         // for now, localhost is used if there is no backend saved yet
         //TODO: investigate how to do this properly and not use a known-failing IP address
-        ApiService apiService = new Retrofit.Builder()
-                .baseUrl(connectionSettings.getString(getString(R.string.pref_conn_settings), "192.168.178.21"))
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-                .create(ApiService.class);
+        try {
+            apiService = new Retrofit.Builder()
+                    .baseUrl(connectionSettings.getString(getString(R.string.pref_conn_settings), "http://127.0.0.1/"))
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build()
+                    .create(ApiService.class);
+        } catch (IllegalArgumentException e) { // example: no "http://" in URL
+            //TODO: handle this properly!
+            ApiService apiService = new Retrofit.Builder() // connect to some bullshit to not crash the app; FIXME
+                    .baseUrl("http://127.0.0.1/")
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build()
+                    .create(ApiService.class);
+            e.printStackTrace();
+        }
 
         //VolumeViewModel volumeViewModel = new ViewModelProvider(this).get(VolumeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_volume, container, false);
