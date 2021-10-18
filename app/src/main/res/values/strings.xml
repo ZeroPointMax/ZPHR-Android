@@ -8,7 +8,7 @@
     <string name="ab2">Booster 2</string>
     <string name="mute_on">Stumm</string>
     <string name="mute_off">Laut</string>
-    <string name="vlc_state">Status des VLC-Dienstes: </string>
+    <string name="vlc_state">VLC-Status: </string>
     <string name="vlc_web_button">VLC-Remote</string>
     <string name="vlc_start">VLC starten</string>
     <string name="vlc_kill">VLC beenden</string>
