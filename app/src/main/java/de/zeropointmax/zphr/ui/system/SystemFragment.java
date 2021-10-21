@@ -1,6 +1,8 @@
 package de.zeropointmax.zphr.ui.system;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -21,6 +23,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SystemFragment extends Fragment {
 
+    //TODO: restore saved state if available
     ApiService apiService;
     String backendUri;
     SharedPreferences connectionSettings;
@@ -65,6 +68,63 @@ public class SystemFragment extends Fragment {
             e.printStackTrace();
         }
 
+        AlertDialog.Builder alarmbauerShutdown = new AlertDialog.Builder(context) // ALAAARM
+                .setTitle(R.string.app_name)
+                .setMessage(R.string.system_alert_shutdown)
+                .setIcon(R.drawable.ic_launcher_foreground)
+                // if user is sure to reboot, reboot.
+                .setPositiveButton(R.string.yay, new DialogInterface.OnClickListener() { // now this is getting out of hand
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        apiService.reboot().enqueue(new Callback<Integer>() {
+                            @Override
+                            public void onResponse(Call<Integer> call, Response<Integer> response) {
+
+                            }
+
+                            @Override
+                            public void onFailure(Call<Integer> call, Throwable t) {
+
+                            }
+                        });
+                        dialog.dismiss();
+                    }
+                })
+                .setNegativeButton(R.string.nay, new DialogInterface.OnClickListener() { // if user is not sure, do nothing
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        AlertDialog.Builder alarmbauerReboot = new AlertDialog.Builder(context)
+                .setTitle(R.string.app_name)
+                .setMessage(R.string.system_alert_shutdown)
+                .setIcon(R.drawable.ic_launcher_foreground)
+                // if user is sure to reboot, reboot.
+                .setPositiveButton(R.string.yay, new DialogInterface.OnClickListener() { // now this is getting out of hand
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        apiService.reboot().enqueue(new Callback<Integer>() {
+                            @Override
+                            public void onResponse(Call<Integer> call, Response<Integer> response) {
+                                //TODO: Toast success
+                            }
+
+                            @Override
+                            public void onFailure(Call<Integer> call, Throwable t) {
+                                //TODO: Toast error
+                            }
+                        });
+                        dialog.dismiss();
+                    }
+                })
+                .setNegativeButton(R.string.nay, new DialogInterface.OnClickListener() { // if user is not sure, do nothing
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
         uriRefreshButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,34 +143,16 @@ public class SystemFragment extends Fragment {
         buttonReboot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                apiService.reboot().enqueue(new Callback<Integer>() {
-                    @Override
-                    public void onResponse(Call<Integer> call, Response<Integer> response) {
-
-                    }
-
-                    @Override
-                    public void onFailure(Call<Integer> call, Throwable t) {
-
-                    }
-                });
+                AlertDialog alaaarmReboot = alarmbauerReboot.create();
+                alaaarmReboot.show();
             }
         });
 
         buttonShutdown.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                apiService.shutdown().enqueue(new Callback<Integer>() {
-                    @Override
-                    public void onResponse(Call<Integer> call, Response<Integer> response) {
-
-                    }
-
-                    @Override
-                    public void onFailure(Call<Integer> call, Throwable t) {
-
-                    }
-                });
+                AlertDialog alaaarmShutdown = alarmbauerShutdown.create();
+                alaaarmShutdown.show();
             }
         });
         /*
