@@ -76,7 +76,8 @@
             android:ems="10"
             android:id="@+id/input_uri"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/textView4" android:layout_marginTop="32dp"/>
+            app:layout_constraintTop_toBottomOf="@+id/textView4" android:layout_marginTop="24dp"
+            android:hint="@string/system_server_uri" android:importantForAutofill="no"/>
     <ImageButton
             android:src="@drawable/ic_baseline_done_24"
             android:layout_width="wrap_content"
@@ -84,7 +85,7 @@
             app:layout_constraintTop_toTopOf="@+id/input_uri"
             app:layout_constraintBottom_toBottomOf="@+id/input_uri"
             android:layout_marginStart="8dp" app:layout_constraintStart_toEndOf="@+id/button_uri_refresh"
-            android:id="@+id/button_uri_set"/>
+            android:id="@+id/button_uri_set" android:contentDescription="@string/cd_button_uri_set"/>
     <ImageButton
             android:src="@drawable/baseline_refresh_24"
             android:layout_width="wrap_content"
@@ -92,10 +93,6 @@
             app:layout_constraintTop_toTopOf="@+id/input_uri"
             app:layout_constraintBottom_toBottomOf="@+id/input_uri"
             app:layout_constraintStart_toEndOf="@+id/input_uri"
-            android:layout_marginStart="8dp" android:id="@+id/button_uri_refresh"/>
-    <TextView
-            android:text="@string/system_server_uri"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/textView6"
-            app:layout_constraintBottom_toTopOf="@+id/input_uri" app:layout_constraintStart_toStartOf="@+id/input_uri"/>
+            android:layout_marginStart="8dp" android:id="@+id/button_uri_refresh"
+            android:contentDescription="@string/cd_button_uri_refresh"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

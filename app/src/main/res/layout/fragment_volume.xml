@@ -28,7 +28,8 @@
             android:scaleX="1.2" android:scaleY="1.2"
             app:layout_constraintStart_toEndOf="@+id/ab1CheckBox" android:layout_marginStart="32dp"
             app:layout_constraintTop_toTopOf="@+id/ab1CheckBox"
-            app:layout_constraintBottom_toBottomOf="@+id/ab1CheckBox"/>
+            app:layout_constraintBottom_toBottomOf="@+id/ab1CheckBox"
+            android:contentDescription="@string/cd_button_volume_refresh"/>
     <SeekBar
             android:layout_width="246dp"
             android:layout_height="24dp" android:id="@+id/hdphSeekbar"
@@ -47,7 +48,8 @@
             android:layout_height="wrap_content" android:id="@+id/hdphSendButton"
             app:layout_constraintStart_toEndOf="@+id/hdphSeekBarText" android:layout_marginStart="16dp"
             app:layout_constraintBottom_toBottomOf="@+id/hdphSeekBarText"
-            app:layout_constraintTop_toTopOf="@+id/hdphSeekBarText"/>
+            app:layout_constraintTop_toTopOf="@+id/hdphSeekBarText"
+            android:contentDescription="@string/cd_button_volume_hdph_set"/>
     <CheckBox
             android:text="@string/ab1"
             android:layout_width="wrap_content"
@@ -98,6 +100,7 @@
             android:layout_height="wrap_content" android:id="@+id/digitalSendButton"
             app:layout_constraintTop_toTopOf="@+id/digitalSeekBarText"
             app:layout_constraintBottom_toBottomOf="@+id/digitalSeekBarText"
-            app:layout_constraintStart_toEndOf="@+id/digitalSeekBarText" android:layout_marginStart="16dp"/>
+            app:layout_constraintStart_toEndOf="@+id/digitalSeekBarText" android:layout_marginStart="16dp"
+            android:contentDescription="@string/cd_button_volume_digital_set"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

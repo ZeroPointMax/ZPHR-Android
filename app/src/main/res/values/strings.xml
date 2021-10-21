@@ -19,4 +19,9 @@
     <string name="system_reboot">Neustart</string>
     <string name="system_shutdown">Ausschalten</string>
     <string name="system_server_uri">Adresse des Backends</string>
+    <string name="cd_button_uri_set">Backend-Adresse speichern</string>
+    <string name="cd_button_uri_refresh">Backend-Adresse zurücksetzen</string>
+    <string name="cd_button_volume_refresh">Lautstärken neu laden</string>
+    <string name="cd_button_volume_hdph_set">Lautstärke der Klinke speichern</string>
+    <string name="cd_button_volume_digital_set">Lautstärke der Chinchkabel speichern</string>
 </resources>
