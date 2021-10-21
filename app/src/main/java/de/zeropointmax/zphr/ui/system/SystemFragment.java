@@ -6,19 +6,29 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import de.zeropointmax.zphr.ApiService;
 import de.zeropointmax.zphr.R;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SystemFragment extends Fragment {
 
+    ApiService apiService;
     String backendUri;
     SharedPreferences connectionSettings;
     EditText inputUri;
     ImageButton uriRefreshButton;
     ImageButton uriSetterButton;
+    Button buttonReboot;
+    Button buttonShutdown;
 
     void loadBackendUri() {
         backendUri = connectionSettings.getString(getString(R.string.pref_conn_settings), "");
@@ -34,8 +44,26 @@ public class SystemFragment extends Fragment {
         inputUri = root.findViewById(R.id.input_uri);
         uriRefreshButton = root.findViewById(R.id.button_uri_refresh);
         uriSetterButton = root.findViewById(R.id.button_uri_set);
+        buttonReboot = root.findViewById(R.id.button_reboot);
+        buttonShutdown = root.findViewById(R.id.button_shutdown);
 
         loadBackendUri();
+
+        try {
+            apiService = new Retrofit.Builder()
+                    .baseUrl(connectionSettings.getString(getString(R.string.pref_conn_settings), "http://127.0.0.1/"))
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build()
+                    .create(ApiService.class);
+        } catch (IllegalArgumentException e) { // example: no "http://" in URL
+            //TODO: handle this properly!
+            ApiService apiService = new Retrofit.Builder() // connect to some bullshit to not crash the app; FIXME
+                    .baseUrl("http://127.0.0.1/")
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build()
+                    .create(ApiService.class);
+            e.printStackTrace();
+        }
 
         uriRefreshButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,6 +78,39 @@ public class SystemFragment extends Fragment {
                 connectionSettingsEditor.putString(getString(R.string.pref_conn_settings),
                         inputUri.getText().toString());
                 connectionSettingsEditor.apply();
+            }
+        });
+        buttonReboot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                apiService.reboot().enqueue(new Callback<Integer>() {
+                    @Override
+                    public void onResponse(Call<Integer> call, Response<Integer> response) {
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<Integer> call, Throwable t) {
+
+                    }
+                });
+            }
+        });
+
+        buttonShutdown.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                apiService.shutdown().enqueue(new Callback<Integer>() {
+                    @Override
+                    public void onResponse(Call<Integer> call, Response<Integer> response) {
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<Integer> call, Throwable t) {
+
+                    }
+                });
             }
         });
         /*
