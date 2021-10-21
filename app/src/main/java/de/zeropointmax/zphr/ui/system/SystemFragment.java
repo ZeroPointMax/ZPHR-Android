@@ -98,7 +98,7 @@ public class SystemFragment extends Fragment {
                 });
         AlertDialog.Builder alarmbauerReboot = new AlertDialog.Builder(context)
                 .setTitle(R.string.app_name)
-                .setMessage(R.string.system_alert_shutdown)
+                .setMessage(R.string.system_alert_reboot)
                 .setIcon(R.drawable.ic_launcher_foreground)
                 // if user is sure to reboot, reboot.
                 .setPositiveButton(R.string.yay, new DialogInterface.OnClickListener() { // now this is getting out of hand

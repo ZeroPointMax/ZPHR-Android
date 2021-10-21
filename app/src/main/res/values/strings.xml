@@ -20,6 +20,7 @@
     <string name="system_shutdown">Ausschalten</string>
     <string name="system_server_uri">Adresse des Backends</string>
     <string name="system_alert_shutdown">Wirklich Host herunterfahren?</string>
+    <string name="system_alert_reboot">Wirklich Host neu starten?</string>
     <string name="cd_button_uri_set">Backend-Adresse speichern</string>
     <string name="cd_button_uri_refresh">Backend-Adresse zurücksetzen</string>
     <string name="cd_button_volume_refresh">Lautstärken neu laden</string>
