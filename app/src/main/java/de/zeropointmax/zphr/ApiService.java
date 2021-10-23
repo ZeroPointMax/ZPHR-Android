@@ -41,4 +41,10 @@ public interface ApiService {
     @POST("analogBooster2")
     @FormUrlEncoded
     Call<Short> setAB2(@Field("vol") Short ab2);
+
+    @GET("reboot")
+    Call<Integer> reboot();
+
+    @GET("shutdown")
+    Call<Integer> shutdown();
 }

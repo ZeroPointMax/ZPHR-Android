@@ -22,6 +22,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class VolumeFragment extends Fragment {
 
+    /**
+     * UI elements with program logic
+     */
     ApiService apiService;
     SharedPreferences connectionSettings;
     TextView textViewVolHdph;
@@ -42,6 +45,7 @@ public class VolumeFragment extends Fragment {
      */
     void refreshAll() {
         apiService.getVolumeHeadphone().enqueue(new Callback<Integer>() {
+            @SuppressWarnings("Duplicates") // not sure how i am supposed to de-suplicate this
             @SuppressLint("SetTextI18n")
             @Override
             public void onResponse(@NotNull Call<Integer> call, @NotNull Response<Integer> response) {
@@ -54,7 +58,7 @@ public class VolumeFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(@NotNull Call<Integer> call, Throwable t) {
+            public void onFailure(@NotNull Call<Integer> call, @NotNull Throwable t) {
                 Log.e("ERROR: ", t.getMessage());
                 t.printStackTrace();
             }
@@ -73,7 +77,7 @@ public class VolumeFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<Integer> call, Throwable t) {
+            public void onFailure(@NotNull Call<Integer> call, @NotNull Throwable t) {
 
             }
         });
@@ -101,7 +105,7 @@ public class VolumeFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<Short> call, Throwable t) {
+            public void onFailure(@NotNull Call<Short> call, @NotNull Throwable t) {
 
             }
         });
@@ -115,7 +119,7 @@ public class VolumeFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<Short> call, Throwable t) {
+            public void onFailure(@NotNull Call<Short> call, @NotNull Throwable t) {
 
             }
         });
@@ -138,7 +142,7 @@ public class VolumeFragment extends Fragment {
                     .create(ApiService.class);
         } catch (IllegalArgumentException e) { // example: no "http://" in URL
             //TODO: handle this properly!
-            ApiService apiService = new Retrofit.Builder() // connect to some bullshit to not crash the app; FIXME
+            apiService = new Retrofit.Builder() // connect to some bullshit to not crash the app; FIXME
                     .baseUrl("http://127.0.0.1/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build()
@@ -169,11 +173,7 @@ public class VolumeFragment extends Fragment {
 
         refreshAll();
 
-        refreshButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                refreshAll();
-            }
-        });
+        refreshButton.setOnClickListener(v -> refreshAll());
 
         hdphSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -209,102 +209,79 @@ public class VolumeFragment extends Fragment {
             }
         });
 
-        hdphSendButton.setOnClickListener(new View.OnClickListener() {
+        hdphSendButton.setOnClickListener(v -> apiService.setVolumeHeadphone(hdphSeekBar.getProgress()).enqueue(new Callback<Integer>() {
+            @SuppressLint("SetTextI18n")
             @Override
-            public void onClick(View v) {
-                apiService.setVolumeHeadphone(hdphSeekBar.getProgress()).enqueue(new Callback<Integer>() {
-                    @SuppressLint("SetTextI18n")
-                    @Override
-                    public void onResponse(@NotNull Call<Integer> call, @NotNull Response<Integer> response) {
-                        if (response.isSuccessful()) {
-                            textViewVolHdph.setText(response.body().toString());
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<Integer> call, Throwable t) {
-
-                    }
-                });
+            public void onResponse(@NotNull Call<Integer> call, @NotNull Response<Integer> response) {
+                if (response.isSuccessful()) {
+                    assert response.body() != null;
+                    textViewVolHdph.setText(response.body().toString());
+                }
             }
-        });
 
-        digitalSendButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                apiService.setVolumeDigital(digitalSeekBar.getProgress()).enqueue(new Callback<Integer>() {
-                    @SuppressLint("SetTextI18n")
-                    @Override
-                    public void onResponse(@NotNull Call<Integer> call, @NotNull Response<Integer> response) {
-                        if (response.isSuccessful()) {
-                            textViewVolDigital.setText(response.body().toString());
-                        }
-                    }
+            public void onFailure(@NotNull Call<Integer> call, @NotNull Throwable t) {
 
-                    @Override
-                    public void onFailure(Call<Integer> call, Throwable t) {
-
-                    }
-                });
             }
-        });
+        }));
 
-        muteToggleButton.setOnClickListener(new View.OnClickListener() {
+        digitalSendButton.setOnClickListener(v -> apiService.setVolumeDigital(digitalSeekBar.getProgress()).enqueue(new Callback<Integer>() {
+            @SuppressLint("SetTextI18n")
             @Override
-            public void onClick(View v) {
-                apiService.setMute((short) (muteToggleButton.isChecked() ? 1 : 0)).enqueue(new Callback<Short>() {
-                    @Override
-                    public void onResponse(@NotNull Call<Short> call, @NotNull Response<Short> response) {
-                        if (response.isSuccessful()) { // check again anyways because who knows? It's ALSA after all
-                            muteToggleButton.setChecked(response.body() > 0);
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<Short> call, Throwable t) {
-
-                    }
-                });
+            public void onResponse(@NotNull Call<Integer> call, @NotNull Response<Integer> response) {
+                if (response.isSuccessful()) {
+                    assert response.body() != null;
+                    textViewVolDigital.setText(response.body().toString());
+                }
             }
-        });
 
-        ab1CheckBox.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                apiService.setAB1((short) (ab1CheckBox.isChecked() ? 1 : 0)).enqueue(new Callback<Short>() {
-                    @Override
-                    public void onResponse(@NotNull Call<Short> call, @NotNull Response<Short> response) {
-                        if (response.isSuccessful()) {
-                            ab1CheckBox.setChecked(response.body() > 0);
-                        }
-                    }
+            public void onFailure(@NotNull Call<Integer> call, @NotNull Throwable t) {
 
-                    @Override
-                    public void onFailure(Call<Short> call, Throwable t) {
-
-                    }
-                });
             }
-        });
+        }));
 
-        ab2CheckBox.setOnClickListener(new View.OnClickListener() {
+        muteToggleButton.setOnClickListener(v -> apiService.setMute((short) (muteToggleButton.isChecked() ? 1 : 0)).enqueue(new Callback<Short>() {
             @Override
-            public void onClick(View v) {
-                apiService.setAB2((short) (ab2CheckBox.isChecked() ? 1 : 0)).enqueue(new Callback<Short>() {
-                    @Override
-                    public void onResponse(@NotNull Call<Short> call, @NotNull Response<Short> response) {
-                        if (response.isSuccessful()) {
-                            ab2CheckBox.setChecked(response.body() > 0);
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<Short> call, Throwable t) {
-
-                    }
-                });
+            public void onResponse(@NotNull Call<Short> call, @NotNull Response<Short> response) {
+                if (response.isSuccessful()) { // check again anyways because who knows? It's ALSA after all
+                    muteToggleButton.setChecked(response.body() > 0);
+                }
             }
-        });
+
+            @Override
+            public void onFailure(@NotNull Call<Short> call, @NotNull Throwable t) {
+
+            }
+        }));
+
+        ab1CheckBox.setOnClickListener(v -> apiService.setAB1((short) (ab1CheckBox.isChecked() ? 1 : 0)).enqueue(new Callback<Short>() {
+            @Override
+            public void onResponse(@NotNull Call<Short> call, @NotNull Response<Short> response) {
+                if (response.isSuccessful()) {
+                    ab1CheckBox.setChecked(response.body() > 0);
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<Short> call, @NotNull Throwable t) {
+
+            }
+        }));
+
+        ab2CheckBox.setOnClickListener(v -> apiService.setAB2((short) (ab2CheckBox.isChecked() ? 1 : 0)).enqueue(new Callback<Short>() {
+            @Override
+            public void onResponse(@NotNull Call<Short> call, @NotNull Response<Short> response) {
+                if (response.isSuccessful()) {
+                    ab2CheckBox.setChecked(response.body() > 0);
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<Short> call, @NotNull Throwable t) {
+
+            }
+        }));
 
         return root;
     }
