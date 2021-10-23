@@ -1,5 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="pref_conn_settings" translatable="false">de.zeropointmax.zphr.connpref</string>
     <string name="app_name">ZPHR</string>
     <string name="title_volume">Lautstärke</string>
     <string name="title_system">System</string>

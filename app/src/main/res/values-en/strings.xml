@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ZPHR</string>
+    <string name="title_volume">Volume</string>
+    <string name="title_system">System</string>
+    <string name="vol_hdph">Headphones</string>
+    <string name="vol_digital">Mains</string>
+    <string name="ab1">Booster 1</string>
+    <string name="ab2">Booster 2</string>
+    <string name="mute_on">Mute</string>
+    <string name="mute_off">Unmute</string>
+    <string name="vlc_state">"VLC-state: "</string>
+    <string name="vlc_web_button">VLC-RC</string>
+    <string name="vlc_start">start VLC</string>
+    <string name="vlc_kill">kill VLC</string>
+    <string name="connection_status">"Connection: "</string>
+    <string name="connection_ok">OK</string>
+    <string name="connection_lost">not connected</string>
+    <string name="system_reboot">Reboot</string>
+    <string name="system_shutdown">Shutdown</string>
+    <string name="system_server_uri">Backend-address</string>
+    <string name="system_alert_shutdown">Are you sure to shut down?</string>
+    <string name="system_alert_reboot">Are you sure to reboot?</string>
+    <string name="cd_button_uri_set">Save Backend address</string>
+    <string name="cd_button_uri_refresh">Reload Backend address</string>
+    <string name="cd_button_volume_refresh">Reload</string>
+    <string name="cd_button_volume_hdph_set">Save Headphones</string>
+    <string name="cd_button_volume_digital_set">Save Mains</string>
+    <string name="yay">Yes</string>
+    <string name="nay">No</string>
+</resources>
