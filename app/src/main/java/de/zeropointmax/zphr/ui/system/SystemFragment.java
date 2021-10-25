@@ -18,12 +18,15 @@ import org.jetbrains.annotations.NotNull;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
+import static de.zeropointmax.zphr.RetrofitUtilities.initializeRetrofit;
+
+/**
+ * Logic of the System Fragment is defined here
+ */
 public class SystemFragment extends Fragment {
 
-    //TODO: restore saved state if available
+    //TODO: restore savedInstanceState if available
     ApiService apiService;
     String backendUri;
     SharedPreferences connectionSettings;
@@ -33,11 +36,18 @@ public class SystemFragment extends Fragment {
     Button buttonReboot;
     Button buttonShutdown;
 
+    /**
+     * Loads the backend URI from the app's private storage, but loads an empty string if it is not available.
+     * (yes, this might cause a Retrofit2 IAE later)
+     */
     void loadBackendUri() {
         backendUri = connectionSettings.getString(getString(R.string.pref_conn_settings), "");
         inputUri.setText(backendUri);
     }
 
+    /**
+     * Binds logic to UI elements and initializes Retrofit2
+     */
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_system, container, false);
@@ -53,22 +63,15 @@ public class SystemFragment extends Fragment {
         loadBackendUri();
 
         try {
-            apiService = new Retrofit.Builder()
-                    .baseUrl(connectionSettings.getString(getString(R.string.pref_conn_settings), "http://127.0.0.1/"))
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build()
-                    .create(ApiService.class);
-        } catch (IllegalArgumentException e) { // example: no "http://" in URL
-            //TODO: handle this properly!
-            ApiService apiService = new Retrofit.Builder() // connect to some bullshit to not crash the app; FIXME
-                    .baseUrl("http://127.0.0.1/")
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build()
-                    .create(ApiService.class);
+            apiService = initializeRetrofit(connectionSettings.getString(getString(R.string.pref_conn_settings), "http://127.0.0.1/"));
+        } catch (IllegalArgumentException e) {
+            // TODO: handle this properly!
+            // TODO: Toast error
+            apiService = initializeRetrofit("http://127.0.0.1"); // connect to some bullshit to not crash the app; FIXME
             e.printStackTrace();
         }
 
-        // now this is getting out of hand
+        // prepare Alert ahead of time
         AlertDialog.Builder alarmbauerShutdown = new AlertDialog.Builder(context) // ALAAARM
                 .setTitle(R.string.app_name)
                 .setMessage(R.string.system_alert_shutdown)
@@ -90,8 +93,7 @@ public class SystemFragment extends Fragment {
                 })
                 .setNegativeButton(R.string.nay, (dialog, which) -> dialog.dismiss()); // if user is not sure, do nothing
 
-        // now this is getting out of hand
-        // if user is not sure, do nothing
+        // prepare Alert ahead of time
         AlertDialog.Builder alarmbauerReboot = new AlertDialog.Builder(context)
                 .setTitle(R.string.app_name)
                 .setMessage(R.string.system_alert_reboot)
@@ -111,7 +113,7 @@ public class SystemFragment extends Fragment {
                     });
                     dialog.dismiss();
                 })
-                .setNegativeButton(R.string.nay, (dialog, which) -> dialog.dismiss());
+                .setNegativeButton(R.string.nay, (dialog, which) -> dialog.dismiss()); // if user is not sure, do nothing
 
         uriRefreshButton.setOnClickListener(v -> loadBackendUri());
         uriSetterButton.setOnClickListener(v -> {
@@ -129,15 +131,7 @@ public class SystemFragment extends Fragment {
             AlertDialog alaaarmShutdown = alarmbauerShutdown.create();
             alaaarmShutdown.show();
         });
-        /*
-        final TextView textView = root.findViewById(R.id.text_dashboard);
-        systemViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
-        */
+
         return root;
     }
 }

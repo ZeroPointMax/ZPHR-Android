@@ -13,18 +13,17 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import de.zeropointmax.zphr.ApiService;
 import de.zeropointmax.zphr.R;
+import de.zeropointmax.zphr.RetrofitUtilities;
 import org.jetbrains.annotations.NotNull;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
+/**
+ * Logic of the Volume Fragment is defined here
+ */
 public class VolumeFragment extends Fragment {
 
-    /**
-     * UI elements with program logic
-     */
     ApiService apiService;
     SharedPreferences connectionSettings;
     TextView textViewVolHdph;
@@ -91,7 +90,7 @@ public class VolumeFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<Short> call, Throwable t) {
+            public void onFailure(@NotNull Call<Short> call, @NotNull Throwable t) {
 
             }
         });
@@ -125,6 +124,9 @@ public class VolumeFragment extends Fragment {
         });
     }
 
+    /**
+     * Binds logic to UI elements and initializes Retrofit2
+     */
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         Context context = getActivity();
@@ -135,18 +137,9 @@ public class VolumeFragment extends Fragment {
         // for now, localhost is used if there is no backend saved yet
         //TODO: investigate how to do this properly and not use a known-failing IP address
         try {
-            apiService = new Retrofit.Builder()
-                    .baseUrl(connectionSettings.getString(getString(R.string.pref_conn_settings), "http://127.0.0.1/"))
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build()
-                    .create(ApiService.class);
-        } catch (IllegalArgumentException e) { // example: no "http://" in URL
-            //TODO: handle this properly!
-            apiService = new Retrofit.Builder() // connect to some bullshit to not crash the app; FIXME
-                    .baseUrl("http://127.0.0.1/")
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build()
-                    .create(ApiService.class);
+            apiService = RetrofitUtilities.initializeRetrofit(connectionSettings.getString(getString(R.string.pref_conn_settings), "http://127.0.0.1/"));
+        } catch (IllegalArgumentException e) {
+            apiService = RetrofitUtilities.initializeRetrofit("http://127.0.0.1/"); // connect to some bullshit to not crash the app; FIXME
             e.printStackTrace();
         }
 
@@ -164,12 +157,6 @@ public class VolumeFragment extends Fragment {
         digitalSeekBar = root.findViewById(R.id.digitalSeekBar);
         ab1CheckBox = root.findViewById(R.id.ab1CheckBox);
         ab2CheckBox = root.findViewById(R.id.ab2CheckBox);
-        /*volumeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                //textView.setText(s);
-            }
-        });*/
 
         refreshAll();
 
