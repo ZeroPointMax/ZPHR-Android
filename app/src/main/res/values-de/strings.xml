@@ -29,7 +29,8 @@
     <string name="yay">Ja</string>
     <string name="nay">Nein</string>
     <string name="bluetooth_status">"Bluetooth: "</string>
-    <string name="bluetooth_power_switch">Bluetooth power</string>
-    <string name="bluetooth_pairing_switch">Pairing Mode</string>
+    <string name="bluetooth_power_switch">Bluetooth -Power</string>
+    <string name="bluetooth_pairing_switch">Pairing Modus</string>
     <string name="write_protection">"Schreibschutz: "</string>
+    <string name="write_protection_turn_off">Schreibschutz deaktivieren</string>
 </resources>

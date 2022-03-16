@@ -29,7 +29,8 @@
     <string name="yay">Yes</string>
     <string name="nay">No</string>
     <string name="bluetooth_status">"Bluetooth: "</string>
-    <string name="bluetooth_power_switch">Bluetooth-Power</string>
-    <string name="bluetooth_pairing_switch">Pairing Modus</string>
-    <string name="write_protection">"Write protection: "</string>
+    <string name="bluetooth_power_switch">Bluetooth state</string>
+    <string name="bluetooth_pairing_switch">Pairing Mode</string>
+    <string name="write_protection">"Disk protection: "</string>
+    <string name="write_protection_turn_off">Turn off disk protection</string>
 </resources>
