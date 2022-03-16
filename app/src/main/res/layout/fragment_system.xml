@@ -31,20 +31,29 @@
             android:layout_marginTop="24dp" app:layout_constraintTop_toBottomOf="@+id/textView3"
             android:text="@string/vlc_web_button" android:layout_marginStart="32dp" android:backgroundTint="#f78800"
             android:visibility="gone"/>
+
     <Button
-            android:layout_width="130dp"
-            android:layout_height="67dp" android:id="@+id/button_reboot"
-            app:layout_constraintStart_toStartOf="parent"
-            android:text="@string/system_reboot" android:layout_marginStart="32dp"
-            android:backgroundTint="#FFC107" android:textColor="#000000"
-            app:layout_constraintTop_toBottomOf="@+id/input_uri" android:layout_marginTop="32dp"/>
+        android:id="@+id/button_reboot"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:backgroundTint="#FFC107"
+        android:text="@string/system_reboot"
+        android:textColor="#000000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/input_uri" />
+
     <Button
-            android:layout_width="130dp"
-            android:layout_height="67dp" android:id="@+id/button_shutdown"
-            android:text="@string/system_shutdown"
-            app:layout_constraintTop_toTopOf="@+id/button_reboot"
-            app:layout_constraintBottom_toBottomOf="@+id/button_reboot" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="32dp" android:backgroundTint="#E00000"/>
+        android:id="@+id/button_shutdown"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginEnd="32dp"
+        android:backgroundTint="#E00000"
+        android:text="@string/system_shutdown"
+        app:layout_constraintBottom_toBottomOf="@+id/button_reboot"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/button_reboot" />
 
     <!--TODO: this button is supposed to change colour and string depending on wether VLC runs already or not-->
     <Button
@@ -54,13 +63,16 @@
             app:layout_constraintTop_toTopOf="@+id/button_vlc_rc"
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="32dp" android:backgroundTint="#2E7D32"
             app:layout_constraintBottom_toBottomOf="@+id/button_vlc_rc" android:visibility="gone"/>
+
     <TextView
-            android:text="@string/connection_status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/textView4"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="8dp"/>
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/connection_status"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/textView5"
@@ -113,7 +125,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:text="@string/bluetooth_status"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider" />
 
@@ -129,13 +141,54 @@
         app:layout_constraintStart_toEndOf="@+id/textView6"
         app:layout_constraintTop_toTopOf="@+id/textView6" />
 
-    <Switch
-        android:id="@+id/switch1"
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/switch_bluetooth_power"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="@string/bluetooth_power_switch"
         app:layout_constraintStart_toStartOf="@+id/textView6"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/switch_bluetooth_pairing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/bluetooth_pairing_switch"
+        app:layout_constraintBottom_toBottomOf="@+id/switch_bluetooth_power"
+        app:layout_constraintStart_toEndOf="@+id/switch_bluetooth_power"
+        app:layout_constraintTop_toTopOf="@+id/switch_bluetooth_power" />
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="409dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="16dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/switch_bluetooth_pairing" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/write_protection"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider2" />
+    <TextView
+        android:id="@+id/text_write_protection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textSize="18sp"
+        app:drawableLeftCompat="@drawable/ic_help_black_24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView7"
+        app:layout_constraintStart_toEndOf="@+id/textView7"
+        app:layout_constraintTop_toTopOf="@+id/textView7" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
