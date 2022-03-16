@@ -28,4 +28,6 @@
     <string name="cd_button_volume_digital_set">Lautstärke der Chinchkabel speichern</string>
     <string name="yay">Ja</string>
     <string name="nay">Nein</string>
+    <string name="bluetooth_status">"Bluetooth: "</string>
+    <string name="bluetooth_power_switch">Bluetooth power</string>
 </resources>

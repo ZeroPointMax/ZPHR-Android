@@ -11,7 +11,7 @@ public class RetrofitUtilities {
     /**
      * initializes Retrofit2 and create instance of ApiService, implemented by Retrofit2
      * @param baseUrl the URL of the backend to use
-     * @return ready to use instance of ApiService
+     * @return initialized instance of ApiService
      * @throws IllegalArgumentException thrown when URL is malformed. For example, "http://" is missing.
      */
     public static ApiService initializeRetrofit(String baseUrl) throws IllegalArgumentException {
