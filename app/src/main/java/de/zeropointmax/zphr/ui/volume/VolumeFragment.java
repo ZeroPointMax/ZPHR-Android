@@ -11,6 +11,9 @@ import android.view.ViewGroup;
 import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+
+import com.google.android.material.switchmaterial.SwitchMaterial;
+
 import de.zeropointmax.zphr.ApiService;
 import de.zeropointmax.zphr.R;
 import de.zeropointmax.zphr.RetrofitUtilities;

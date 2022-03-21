@@ -21,6 +21,8 @@ import retrofit2.Response;
 
 import static de.zeropointmax.zphr.RetrofitUtilities.initializeRetrofit;
 
+import com.google.android.material.switchmaterial.SwitchMaterial;
+
 /**
  * Logic of the System Fragment is defined here
  */
@@ -35,6 +37,9 @@ public class SystemFragment extends Fragment {
     ImageButton uriSetterButton;
     Button buttonReboot;
     Button buttonShutdown;
+    SwitchMaterial switchBtPower;
+    SwitchMaterial switchBtPairing;
+    Button buttonDiskProtection;
 
     /**
      * Loads the backend URI from the app's private storage, but loads an empty string if it is not available.
@@ -43,6 +48,47 @@ public class SystemFragment extends Fragment {
     void loadBackendUri() {
         backendUri = connectionSettings.getString(getString(R.string.pref_conn_settings), "");
         inputUri.setText(backendUri);
+    }
+
+    /**
+     * Calculates the desired Bluetooth state from switchBtPower and switchBtPairing,
+     * sends the POST request to the backend and updates the GUI on response.
+     */
+    void setBluetoothState() {
+        short i = 0;
+        if (switchBtPower.isChecked()) i++;
+        if (switchBtPairing.isClickable() && switchBtPairing.isChecked()) i++;
+        apiService.setBluetoothState(i).enqueue(new Callback<Short>() {
+            @Override
+            public void onResponse(@NonNull Call<Short> call, @NonNull Response<Short> response) {
+                if (response.isSuccessful()) {
+                    assert response.body() != null;
+                    switch (response.body()) {
+                        case 0:
+                            switchBtPower.setChecked(false);
+                            switchBtPairing.setChecked(false);
+                            switchBtPairing.setClickable(false);
+                            break;
+                        case 1:
+                            switchBtPower.setChecked(true);
+                            switchBtPairing.setChecked(false);
+                            switchBtPairing.setClickable(true);
+                            break;
+                        case 2:
+                            switchBtPower.setChecked(true);
+                            switchBtPairing.setChecked(true);
+                            switchBtPairing.setClickable(true);
+                            break;
+                        //TODO default branch with error Toast
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Short> call, @NonNull Throwable t) {
+
+            }
+        });
     }
 
     /**
@@ -59,6 +105,9 @@ public class SystemFragment extends Fragment {
         uriSetterButton = root.findViewById(R.id.button_uri_set);
         buttonReboot = root.findViewById(R.id.button_reboot);
         buttonShutdown = root.findViewById(R.id.button_shutdown);
+        switchBtPower = root.findViewById(R.id.switch_bluetooth_power);
+        switchBtPairing = root.findViewById(R.id.switch_bluetooth_pairing);
+        buttonDiskProtection = root.findViewById(R.id.button_toggle_write_protection);
 
         loadBackendUri();
 
@@ -131,6 +180,8 @@ public class SystemFragment extends Fragment {
             AlertDialog alaaarmShutdown = alarmbauerShutdown.create();
             alaaarmShutdown.show();
         });
+        switchBtPower.setOnClickListener(v -> setBluetoothState());
+        switchBtPairing.setOnClickListener(v -> setBluetoothState());
 
         return root;
     }

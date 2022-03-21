@@ -108,9 +108,40 @@ public interface ApiService {
     Call<Integer> reboot();
 
     /**
-     * API endpoint to shut down the host
+     * API Endpoint to shut down the host
      * @return the exit code of the shutdown command
      */
     @GET("shutdown")
     Call<Integer> shutdown();
+
+    /**
+     * API Endpoint to query Bluetooth state
+     * @return The Bluetooth state, being 0 (disabled), 1 (enabled) or 2 (pairing)
+     */
+    @GET("bluetooth")
+    Call<Short> getBluetoothState();
+
+    /**
+     * API Endpoint to set Bluetooth state
+     * @return The new Bluetooth state, being 0 (disabled), 1 (enabled) or 2 (pairing)
+     */
+    @POST("bluetooth")
+    @FormUrlEncoded
+    Call<Short> setBluetoothState(@Field("state") Short state);
+
+    /**
+     * API Endpoint to query the Disk Protection (read-only mount)
+     * @return The state of the disk protection, being on/ro (1) or off/rw (0)
+     */
+    @GET("disk")
+    Call<Short> getDiskProtectionState();
+
+    /**
+     * API Endpoint to manipulate the Disk Protection.
+     * 1 will mount the Root-Filesystem Read-only.
+     * 0 will mount the Root-Filesystem writeable.
+     * @return The new state of the disk protection
+     */
+    @POST("disk")
+    Call<Short> setDiskProtectionState();
 }
