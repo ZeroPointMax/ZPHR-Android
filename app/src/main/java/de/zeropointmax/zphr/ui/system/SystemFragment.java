@@ -91,6 +91,24 @@ public class SystemFragment extends Fragment {
         });
     }
 
+    void updateDiskProtectionButton() {
+
+    }
+
+    void toggleDiskProtection() {
+        apiService.setDiskProtectionState().enqueue(new Callback<Short>() {
+            @Override
+            public void onResponse(@NonNull Call<Short> call, @NonNull Response<Short> response) {
+
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Short> call, @NonNull Throwable t) {
+
+            }
+        });
+    }
+
     /**
      * Binds logic to UI elements and initializes Retrofit2
      */
@@ -182,6 +200,7 @@ public class SystemFragment extends Fragment {
         });
         switchBtPower.setOnClickListener(v -> setBluetoothState());
         switchBtPairing.setOnClickListener(v -> setBluetoothState());
+        buttonDiskProtection.setOnClickListener(v -> toggleDiskProtection());
 
         return root;
     }
