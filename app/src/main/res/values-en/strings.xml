@@ -18,7 +18,7 @@
     <string name="connection_lost">not connected</string>
     <string name="system_reboot">Reboot</string>
     <string name="system_shutdown">Shutdown</string>
-    <string name="system_server_uri">Backend-address</string>
+    <string name="system_server_uri">http://host:port/</string>
     <string name="system_alert_shutdown">Are you sure to shut down?</string>
     <string name="system_alert_reboot">Are you sure to reboot?</string>
     <string name="cd_button_uri_set">Save Backend address</string>

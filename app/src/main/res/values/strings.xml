@@ -18,7 +18,7 @@
     <string name="connection_lost">nicht verbunden</string>
     <string name="system_reboot">Neustart</string>
     <string name="system_shutdown">Ausschalten</string>
-    <string name="system_server_uri">Adresse des Backends</string>
+    <string name="system_server_uri">http://host:port/</string>
     <string name="system_alert_shutdown">Wirklich Host herunterfahren?</string>
     <string name="system_alert_reboot">Wirklich Host neu starten?</string>
     <string name="cd_button_uri_set">Backend-Adresse speichern</string>
