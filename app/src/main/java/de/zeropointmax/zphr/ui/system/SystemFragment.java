@@ -32,6 +32,7 @@ public class SystemFragment extends Fragment {
     ApiService apiService;
     String backendUri;
     SharedPreferences connectionSettings;
+    AlertDialog.Builder alarmbauerReboot;
     EditText inputUri;
     ImageButton uriRefreshButton;
     ImageButton uriSetterButton;
@@ -91,6 +92,20 @@ public class SystemFragment extends Fragment {
 
             }
         });
+        apiService.getDiskProtectionState().enqueue(new Callback<Short>() {
+            @Override
+            public void onResponse(@NonNull Call<Short> call, @NonNull Response<Short> response) {
+                if (response.isSuccessful()) {
+                    assert response.body() != null;
+                    refreshDiskProtectionButton(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Short> call, @NonNull Throwable t) {
+
+            }
+        });
     }
 
     /**
@@ -117,15 +132,41 @@ public class SystemFragment extends Fragment {
         });
     }
 
-    void updateDiskProtectionButton() {
-
+    void refreshDiskProtectionButton(short state) {
+        if (state > 0) {
+            // ro
+            buttonDiskProtection.setBackgroundColor(0xe00000);
+            buttonDiskProtection.setText(R.string.write_protection_turn_on);
+        } else {
+            // rw
+            buttonDiskProtection.setBackgroundColor(0x009000);
+            buttonDiskProtection.setText(R.string.write_protection_turn_off);
+        }
     }
 
     void toggleDiskProtection() {
-        apiService.setDiskProtectionState().enqueue(new Callback<Short>() {
+        final short[] state = new short[1];
+        apiService.getDiskProtectionState().enqueue(new Callback<Short>() {
             @Override
             public void onResponse(@NonNull Call<Short> call, @NonNull Response<Short> response) {
+                assert response.body() != null;
+                state[0] = response.body();
+            }
 
+            @Override
+            public void onFailure(@NonNull Call<Short> call, @NonNull Throwable t) {
+
+            }
+        });
+
+        apiService.setDiskProtectionState(state[0]).enqueue(new Callback<Short>() {
+            @Override
+            public void onResponse(@NonNull Call<Short> call, @NonNull Response<Short> response) {
+                if (response.isSuccessful()) {
+                    assert response.body() != null;
+                    refreshDiskProtectionButton(response.body());
+                    alarmbauerReboot.show();
+                }
             }
 
             @Override
@@ -187,7 +228,7 @@ public class SystemFragment extends Fragment {
                 .setNegativeButton(R.string.nay, (dialog, which) -> dialog.dismiss()); // if user is not sure, do nothing
 
         // prepare Alert ahead of time
-        AlertDialog.Builder alarmbauerReboot = new AlertDialog.Builder(context)
+        alarmbauerReboot = new AlertDialog.Builder(context)
                 .setTitle(R.string.app_name)
                 .setMessage(R.string.system_alert_reboot)
                 .setIcon(R.drawable.ic_launcher_foreground)
@@ -218,10 +259,7 @@ public class SystemFragment extends Fragment {
                     inputUri.getText().toString());
             connectionSettingsEditor.apply();
         });
-        buttonReboot.setOnClickListener(v -> {
-            AlertDialog alaaarmReboot = alarmbauerReboot.create();
-            alaaarmReboot.show();
-        });
+        buttonReboot.setOnClickListener(v -> alarmbauerReboot.show());
 
         buttonShutdown.setOnClickListener(v -> {
             AlertDialog alaaarmShutdown = alarmbauerShutdown.create();

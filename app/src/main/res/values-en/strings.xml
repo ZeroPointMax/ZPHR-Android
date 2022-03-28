@@ -33,4 +33,5 @@
     <string name="bluetooth_pairing_switch">Pairing Mode</string>
     <string name="write_protection">"Disk protection: "</string>
     <string name="write_protection_turn_off">Turn off disk protection</string>
+    <string name="write_protection_turn_on">Turn on disk protection</string>
 </resources>

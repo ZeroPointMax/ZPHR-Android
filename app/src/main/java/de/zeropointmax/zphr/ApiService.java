@@ -143,5 +143,6 @@ public interface ApiService {
      * @return The new state of the disk protection
      */
     @POST("disk")
-    Call<Short> setDiskProtectionState();
+    @FormUrlEncoded
+    Call<Short> setDiskProtectionState(@Field("protection") Short state);
 }

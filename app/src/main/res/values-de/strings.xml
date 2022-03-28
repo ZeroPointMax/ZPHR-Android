@@ -33,4 +33,5 @@
     <string name="bluetooth_pairing_switch">Pairing Modus</string>
     <string name="write_protection">"Schreibschutz: "</string>
     <string name="write_protection_turn_off">Schreibschutz deaktivieren</string>
+    <string name="write_protection_turn_on">Schreibschutz aktivieren</string>
 </resources>
