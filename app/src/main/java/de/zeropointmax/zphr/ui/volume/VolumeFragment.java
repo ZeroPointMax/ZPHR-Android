@@ -43,11 +43,13 @@ public class VolumeFragment extends Fragment {
     CheckBox ab2CheckBox;
 
     /**
-     * Update all UI components from the backend and silently fail on errors
+     * Update all volume UI components from the backend and silently fail on errors
+     * TODO: De-duplicate code
+     * TODO: do not silently fail on errors
      */
     void refreshAll() {
         apiService.getVolumeHeadphone().enqueue(new Callback<Integer>() {
-            @SuppressWarnings("Duplicates") // not sure how i am supposed to de-suplicate this
+            @SuppressWarnings("Duplicates") // not sure how i am supposed to de-duplicate this
             @SuppressLint("SetTextI18n")
             @Override
             public void onResponse(@NotNull Call<Integer> call, @NotNull Response<Integer> response) {
@@ -88,6 +90,7 @@ public class VolumeFragment extends Fragment {
             @Override
             public void onResponse(@NotNull Call<Short> call, @NotNull Response<Short> response) {
                 if (response.isSuccessful()) {
+                    assert response.body() != null;
                     muteToggleButton.setChecked(response.body() > 0);
                 }
             }
@@ -102,6 +105,7 @@ public class VolumeFragment extends Fragment {
             @Override
             public void onResponse(@NotNull Call<Short> call, @NotNull Response<Short> response) {
                 if (response.isSuccessful()) {
+                    assert response.body() != null;
                     ab1CheckBox.setChecked(response.body() > 0);
                 }
             }
@@ -116,6 +120,7 @@ public class VolumeFragment extends Fragment {
             @Override
             public void onResponse(@NotNull Call<Short> call, @NotNull Response<Short> response) {
                 if (response.isSuccessful()) {
+                    assert response.body() != null;
                     ab2CheckBox.setChecked(response.body() > 0);
                 }
             }
@@ -235,6 +240,7 @@ public class VolumeFragment extends Fragment {
             @Override
             public void onResponse(@NotNull Call<Short> call, @NotNull Response<Short> response) {
                 if (response.isSuccessful()) { // check again anyways because who knows? It's ALSA after all
+                    assert response.body() != null;
                     muteToggleButton.setChecked(response.body() > 0);
                 }
             }
@@ -249,6 +255,7 @@ public class VolumeFragment extends Fragment {
             @Override
             public void onResponse(@NotNull Call<Short> call, @NotNull Response<Short> response) {
                 if (response.isSuccessful()) {
+                    assert response.body() != null;
                     ab1CheckBox.setChecked(response.body() > 0);
                 }
             }
@@ -263,6 +270,7 @@ public class VolumeFragment extends Fragment {
             @Override
             public void onResponse(@NotNull Call<Short> call, @NotNull Response<Short> response) {
                 if (response.isSuccessful()) {
+                    assert response.body() != null;
                     ab2CheckBox.setChecked(response.body() > 0);
                 }
             }

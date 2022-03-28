@@ -50,6 +50,49 @@ public class SystemFragment extends Fragment {
         inputUri.setText(backendUri);
     }
 
+    void refreshBluetoothUI(short state) {
+        switch (state) {
+            case 0:
+                switchBtPower.setChecked(false);
+                switchBtPairing.setChecked(false);
+                switchBtPairing.setClickable(false);
+                break;
+            case 1:
+                switchBtPower.setChecked(true);
+                switchBtPairing.setChecked(false);
+                switchBtPairing.setClickable(true);
+                break;
+            case 2:
+                switchBtPower.setChecked(true);
+                switchBtPairing.setChecked(true);
+                switchBtPairing.setClickable(true);
+                break;
+            //TODO default branch with error Toast
+        }
+    }
+
+    /**
+     * Update all system UI components from the backend and silently fail on errors
+     * TODO: De-duplicate code
+     * TODO: do not silently fail on errors
+     */
+    void refreshAll() {
+        apiService.getBluetoothState().enqueue(new Callback<Short>() {
+            @Override
+            public void onResponse(@NonNull Call<Short> call, @NonNull Response<Short> response) {
+                if (response.isSuccessful()) {
+                    assert response.body() != null;
+                    refreshBluetoothUI(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Short> call, @NonNull Throwable t) {
+
+            }
+        });
+    }
+
     /**
      * Calculates the desired Bluetooth state from switchBtPower and switchBtPairing,
      * sends the POST request to the backend and updates the GUI on response.
@@ -63,24 +106,7 @@ public class SystemFragment extends Fragment {
             public void onResponse(@NonNull Call<Short> call, @NonNull Response<Short> response) {
                 if (response.isSuccessful()) {
                     assert response.body() != null;
-                    switch (response.body()) {
-                        case 0:
-                            switchBtPower.setChecked(false);
-                            switchBtPairing.setChecked(false);
-                            switchBtPairing.setClickable(false);
-                            break;
-                        case 1:
-                            switchBtPower.setChecked(true);
-                            switchBtPairing.setChecked(false);
-                            switchBtPairing.setClickable(true);
-                            break;
-                        case 2:
-                            switchBtPower.setChecked(true);
-                            switchBtPairing.setChecked(true);
-                            switchBtPairing.setClickable(true);
-                            break;
-                        //TODO default branch with error Toast
-                    }
+                    refreshBluetoothUI(response.body());
                 }
             }
 
@@ -182,7 +208,10 @@ public class SystemFragment extends Fragment {
                 })
                 .setNegativeButton(R.string.nay, (dialog, which) -> dialog.dismiss()); // if user is not sure, do nothing
 
-        uriRefreshButton.setOnClickListener(v -> loadBackendUri());
+        uriRefreshButton.setOnClickListener(v -> {
+            loadBackendUri();
+            refreshAll();
+        });
         uriSetterButton.setOnClickListener(v -> {
             SharedPreferences.Editor connectionSettingsEditor = connectionSettings.edit();
             connectionSettingsEditor.putString(getString(R.string.pref_conn_settings),
@@ -201,6 +230,8 @@ public class SystemFragment extends Fragment {
         switchBtPower.setOnClickListener(v -> setBluetoothState());
         switchBtPairing.setOnClickListener(v -> setBluetoothState());
         buttonDiskProtection.setOnClickListener(v -> toggleDiskProtection());
+
+        refreshAll();
 
         return root;
     }
